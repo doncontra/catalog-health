@@ -1,0 +1,38 @@
+{
+  "name": "catalog-health-copilot",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:cloudflare": "tsc -b && VITE_USE_LIVE_API=true vite build && npm run typecheck:worker",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck:worker": "tsc -p tsconfig.worker.json",
+    "cf:dev": "npm run build:cloudflare && wrangler dev --env-file .env.local",
+    "cf:types": "wrangler types",
+    "seed": "node --env-file=.env.local --import tsx scripts/seed.ts",
+    "reset:catalog": "node --env-file=.env.local --import tsx scripts/reset-catalog.ts",
+    "shopify:check": "node --env-file=.env.local --import tsx scripts/check-shopify.ts",
+    "deploy": "npm run build:cloudflare && wrangler deploy"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260831.1",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tsx": "latest",
+    "typescript": "latest",
+    "vitest": "latest",
+    "wrangler": "^4.127.1"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "catalog-health-copilot",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ALLOW_LIVE_WRITES": "true"
+  },
+  "ratelimits": [
+    {
+      "name": "WRITE_RATE_LIMITER",
+      "namespace_id": "826301",
+      "simple": { "limit": 30, "period": 60 }
+    },
+    {
+      "name": "OPENAI_RATE_LIMITER",
+      "namespace_id": "826302",
+      "simple": { "limit": 20, "period": 60 }
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "secrets": {
+    "required": [
+      "SHOPIFY_SHOP",
+      "SHOPIFY_CLIENT_ID",
+      "SHOPIFY_CLIENT_SECRET",
+      "OPENAI_API_KEY",
+      "OPENAI_MODEL"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1 }
+  }
+}

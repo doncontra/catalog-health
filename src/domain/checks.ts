@@ -1,0 +1,27 @@
+import type { CheckDefinition } from "./types";
+
+export const CHECKS: Record<string, CheckDefinition> = {
+  missing_barcode: { id: "missing_barcode", label: "Missing barcode", category: "identifiers", severity: "critical", points: 8, message: "Missing identifiers can block listings and make product matching unreliable.", field: "variant.barcode", manual: true },
+  barcode_not_structured: { id: "barcode_not_structured", label: "Invalid GTIN format", category: "identifiers", severity: "warning", points: 4, message: "This barcode is not a valid GTIN length or check digit.", field: "variant.barcode", manual: true },
+  missing_vendor: { id: "missing_vendor", label: "Missing vendor", category: "identifiers", severity: "warning", points: 4, message: "Vendor data helps marketplaces and agents identify who makes the product.", field: "vendor", draftable: true },
+  missing_category: { id: "missing_category", label: "Missing category", category: "identifiers", severity: "critical", points: 8, message: "A specific standard category improves search eligibility and agent matching.", field: "category", draftable: true },
+  vague_taxonomy: { id: "vague_taxonomy", label: "Vague taxonomy", category: "identifiers", severity: "warning", points: 4, message: "Broad product types make this item harder to retrieve for specific shopping queries.", field: "productType", draftable: true },
+  missing_sku: { id: "missing_sku", label: "Missing SKU", category: "identifiers", severity: "info", points: 2, message: "A stable SKU improves catalog reconciliation.", field: "variant.sku", manual: true },
+  missing_description: { id: "missing_description", label: "Missing description", category: "content", severity: "critical", points: 10, message: "Search and shopping agents have no useful product context.", field: "descriptionHtml", draftable: true },
+  thin_description: { id: "thin_description", label: "Thin description", category: "content", severity: "warning", points: 6, message: "Short descriptions provide less context for ranking and recommendations.", field: "descriptionHtml", draftable: true },
+  marketing_not_literal: { id: "marketing_not_literal", label: "Marketing-only copy", category: "content", severity: "warning", points: 5, message: "Concrete attributes help agents understand when and why to recommend this product.", field: "descriptionHtml", draftable: true },
+  title_issues: { id: "title_issues", label: "Title needs cleanup", category: "content", severity: "warning", points: 4, message: "Clear, concise titles are easier to match to shopper intent.", field: "title", draftable: true },
+  duplicate_titles: { id: "duplicate_titles", label: "Duplicate title", category: "content", severity: "warning", points: 4, message: "Duplicate titles make distinct products difficult to identify.", field: "title", draftable: true },
+  no_images: { id: "no_images", label: "No images", category: "media", severity: "critical", points: 10, message: "Products without media are less likely to convert or be recommended." },
+  single_image: { id: "single_image", label: "Single image", category: "media", severity: "info", points: 3, message: "Additional views help shoppers evaluate the product." },
+  missing_alt_text: { id: "missing_alt_text", label: "Missing alt text", category: "media", severity: "warning", points: 5, message: "Alt text improves accessibility and gives search systems image context.", field: "image.altText", draftable: true },
+  missing_seo_title: { id: "missing_seo_title", label: "Missing SEO title", category: "seo", severity: "warning", points: 5, message: "A focused SEO title helps this product appear for relevant searches.", field: "seo.title", draftable: true },
+  missing_seo_description: { id: "missing_seo_description", label: "Missing meta description", category: "seo", severity: "warning", points: 5, message: "The search result has no persuasive, product-specific summary.", field: "seo.description", draftable: true },
+  seo_description_length: { id: "seo_description_length", label: "Meta description length", category: "seo", severity: "info", points: 3, message: "Keep search descriptions between 70 and 160 characters.", field: "seo.description", draftable: true },
+  active_zero_inventory: { id: "active_zero_inventory", label: "Active with no inventory", category: "commercial", severity: "warning", points: 6, message: "An active unavailable product creates a poor shopping experience." },
+  stale_draft: { id: "stale_draft", label: "Stale draft", category: "commercial", severity: "info", points: 2, message: "This draft has not been updated in more than 30 days." },
+  variant_fragmentation: { id: "variant_fragmentation", label: "Fragmented variants", category: "agent_readiness", severity: "critical", points: 8, message: "Related colors or sizes should be grouped so agents understand available choices." },
+  no_variant_options: { id: "no_variant_options", label: "Unnamed variant options", category: "agent_readiness", severity: "warning", points: 4, message: "Named options let agents explain and select variants reliably." },
+  attributes_missing: { id: "attributes_missing", label: "Missing product attributes", category: "agent_readiness", severity: "info", points: 3, message: "Comparable specifications help agents recommend the right product." },
+  unclear_pricing: { id: "unclear_pricing", label: "Unclear pricing", category: "agent_readiness", severity: "info", points: 2, message: "Structured pricing should match the offer described in the product copy." },
+};

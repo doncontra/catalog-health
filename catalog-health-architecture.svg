@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1730" height="950" viewBox="0 0 1730 950" role="img" aria-labelledby="title description">
+  <title id="title">Catalog Health Copilot architecture</title>
+  <desc id="description">Merchant and ChatGPT entry points flow through the React UI and ten WebMCP tools into shared catalog logic, a Cloudflare Worker API, Shopify, and OpenAI.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#262626"/>
+    </marker>
+    <style>
+      .node { stroke-width: 2.5; rx: 12; }
+      .node-title { font: 600 20px Inter, ui-sans-serif, system-ui, sans-serif; fill: #171717; text-anchor: middle; }
+      .node-subtitle { font: 16px Inter, ui-sans-serif, system-ui, sans-serif; fill: #404040; text-anchor: middle; }
+      .section-title { font: 600 17px Inter, ui-sans-serif, system-ui, sans-serif; fill: #581c87; text-anchor: middle; letter-spacing: 0.04em; }
+      .tool-item { font: 16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #3b0764; text-anchor: middle; }
+      .connector { fill: none; stroke: #262626; stroke-width: 2.5; marker-end: url(#arrow); }
+      .connector-label { font: 14px Inter, ui-sans-serif, system-ui, sans-serif; fill: #262626; text-anchor: middle; paint-order: stroke; stroke: #ffffff; stroke-width: 6px; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect x="505" y="10" width="560" height="70" rx="12" fill="none" stroke="#262626" stroke-width="2.5"/>
+  <text x="785" y="53" class="node-title" font-size="26">Catalog Health Copilot — Architecture</text>
+
+  <path class="connector" d="M 230 175 L 330 175"/>
+  <text x="280" y="161" class="connector-label">clicks</text>
+
+  <path class="connector" d="M 230 395 L 330 395"/>
+  <text x="280" y="381" class="connector-label">tool calls</text>
+
+  <path class="connector" d="M 580 175 C 620 175, 635 250, 680 270"/>
+  <text x="625" y="207" class="connector-label">actions</text>
+
+  <path class="connector" d="M 580 395 C 620 395, 635 330, 680 310"/>
+  <text x="626" y="378" class="connector-label">same functions</text>
+
+  <path class="connector" d="M 950 290 L 1050 290"/>
+  <text x="1000" y="276" class="connector-label">fetch /api/*</text>
+
+  <path class="connector" d="M 1340 270 C 1382 250, 1396 175, 1440 175"/>
+  <text x="1387" y="219" class="connector-label">read / write</text>
+
+  <path class="connector" d="M 1340 310 C 1382 330, 1396 395, 1440 395"/>
+  <text x="1387" y="371" class="connector-label">generate draft</text>
+
+  <path class="connector" d="M 455 445 L 455 555"/>
+  <text x="492" y="507" class="connector-label">registers</text>
+
+  <rect class="node" x="20" y="125" width="210" height="100" fill="#fff1d6" stroke="#d97706"/>
+  <text x="125" y="165" class="node-title">Merchant</text>
+  <text x="125" y="194" class="node-subtitle">uses dashboard</text>
+
+  <rect class="node" x="20" y="345" width="210" height="100" fill="#f3e8ff" stroke="#7e22ce"/>
+  <text x="125" y="385" class="node-title">ChatGPT agent</text>
+  <text x="125" y="414" class="node-subtitle">uses WebMCP</text>
+
+  <rect class="node" x="330" y="125" width="250" height="100" fill="#e0f2fe" stroke="#0369a1"/>
+  <text x="455" y="165" class="node-title">React UI</text>
+  <text x="455" y="194" class="node-subtitle">scores · queue · diffs</text>
+
+  <rect class="node" x="330" y="345" width="250" height="100" fill="#f3e8ff" stroke="#7e22ce"/>
+  <text x="455" y="385" class="node-title">WebMCP tools</text>
+  <text x="455" y="414" class="node-subtitle">imperative · top-level</text>
+
+  <rect class="node" x="680" y="235" width="270" height="110" fill="#dcfce7" stroke="#15803d"/>
+  <text x="815" y="279" class="node-title">Shared catalog logic</text>
+  <text x="815" y="309" class="node-subtitle">audit · draft · apply · verify</text>
+
+  <rect class="node" x="1050" y="235" width="290" height="110" fill="#e0f2fe" stroke="#0369a1"/>
+  <text x="1195" y="275" class="node-title">Cloudflare Worker API</text>
+  <text x="1195" y="306" class="node-subtitle">/api/catalog · audit · fixes · verify</text>
+
+  <rect class="node" x="1440" y="125" width="250" height="100" fill="#dcfce7" stroke="#15803d"/>
+  <text x="1565" y="165" class="node-title">Shopify dev store</text>
+  <text x="1565" y="194" class="node-subtitle">Admin GraphQL API</text>
+
+  <rect class="node" x="1440" y="345" width="250" height="100" fill="#fff1d6" stroke="#d97706"/>
+  <text x="1565" y="385" class="node-title">OpenAI</text>
+  <text x="1565" y="414" class="node-subtitle">fix draft generation</text>
+
+  <rect class="node" x="260" y="555" width="640" height="70" fill="none" stroke="#7e22ce"/>
+  <text x="580" y="598" class="node-title" fill="#581c87">WebMCP registry · 10 tools</text>
+
+  <rect class="node" x="260" y="655" width="310" height="250" fill="#f3e8ff" stroke="#7e22ce"/>
+  <text x="415" y="692" class="section-title">INSPECT &amp; UNDERSTAND</text>
+  <text x="415" y="733" class="tool-item">1. scan_catalog</text>
+  <text x="415" y="767" class="tool-item">2. get_health_score</text>
+  <text x="415" y="801" class="tool-item">3. list_issues</text>
+  <text x="415" y="835" class="tool-item">4. show_issue</text>
+  <text x="415" y="869" class="tool-item">5. preview_agent_view</text>
+
+  <rect class="node" x="590" y="655" width="310" height="250" fill="#f3e8ff" stroke="#7e22ce"/>
+  <text x="745" y="692" class="section-title">DRAFT &amp; RESOLVE</text>
+  <text x="745" y="733" class="tool-item">6. generate_fix</text>
+  <text x="745" y="767" class="tool-item">7. apply_fix</text>
+  <text x="745" y="801" class="tool-item">8. apply_approved</text>
+  <text x="745" y="835" class="tool-item">9. dismiss_issue</text>
+  <text x="745" y="869" class="tool-item">10. verify_fix</text>
+</svg>
